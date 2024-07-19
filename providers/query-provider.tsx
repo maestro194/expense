@@ -38,7 +38,7 @@ type Props = {
     children: React.ReactNode;
 }
 
-export default function QueryProviders({ children }: Props) {
+export function QueryProviders({ children }: Props) {
   // NOTE: Avoid useState when initializing the query client if you don't
   //       have a suspense boundary between this and the code that may
   //       suspend because React will throw away the client on the initial
