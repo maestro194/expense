@@ -1,3 +1,4 @@
+import 'package:expense/models/account.dart';
 import 'package:flutter/material.dart';
 
 import 'package:expense/models/expense.dart';
@@ -7,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 class ExpenseDatabase extends ChangeNotifier {
   static late Isar _isar;
   List<Expense> _expenses = [];
+  List<Account> _accounts = [];
   /*
     SETUP
   */
@@ -14,7 +16,7 @@ class ExpenseDatabase extends ChangeNotifier {
   // initialize the database
   static Future<void> init() async {
     final dir = await getApplicationDocumentsDirectory();
-    _isar = await Isar.open([ExpenseSchema], directory: dir.path);
+    _isar = await Isar.open([AccountSchema ,ExpenseSchema], directory: dir.path);
   }
 
   /*
@@ -47,10 +49,8 @@ class ExpenseDatabase extends ChangeNotifier {
 
   // update
   Future<void> updateExpense(Id id, Expense updatedExpense) async {
-    // id check
-    if (id != updatedExpense.id) {
-      throw Exception('ID mismatch');
-    }
+    // id 
+    updatedExpense.id = id;
 
     // update the expense
     await _isar.writeTxn(() => _isar.expenses.put(updatedExpense));
@@ -70,4 +70,40 @@ class ExpenseDatabase extends ChangeNotifier {
   /*
     HELPERS
   */
+
+  /*
+    ACCOUNTS
+  */
+
+  List<Account> get accounts => _accounts;
+
+  /*
+    OPERATIONS
+  */
+
+  // add a new account
+  Future<void> addAccount(Account newAccount) async {
+    await _isar.writeTxn(() => _isar.accounts.put(newAccount));
+
+    // update the list of accounts
+    await getAllAccounts();
+  }
+
+  // get all accounts
+  Future<void> getAllAccounts() async {
+    List<Account> accounts = await _isar.accounts.where().findAll();
+
+    _accounts = accounts;
+
+    // UI update
+    notifyListeners();
+  }
+
+  // update an account
+  Future<void> updateAccount(Account updatedAccount) async {
+    await _isar.writeTxn(() => _isar.accounts.put(updatedAccount));
+
+    // update the list of accounts
+    await getAllAccounts();
+  }
 }

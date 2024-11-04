@@ -1,3 +1,4 @@
+import 'package:expense/models/account.dart';
 import 'package:isar/isar.dart';
 
 // line needed to generate isar file
@@ -10,10 +11,11 @@ class Expense {
   final String title;
   final double amount;
   final DateTime date;
+  final account = IsarLink<Account>();
 
   Expense({
     required this.title, 
     required this.amount, 
-    required this.date
+    required this.date,
   });
 }

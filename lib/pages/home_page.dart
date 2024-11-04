@@ -1,7 +1,8 @@
 import 'package:expense/database/expense_database.dart';
-import 'package:expense/pages/home/components/get_expenses_view.dart';
+import 'package:expense/pages/components/bar_graph.dart';
+import 'package:expense/pages/components/custom_app_bar.dart';
+import 'package:expense/pages/components/get_expenses_list.dart';
 import 'package:flutter/material.dart';
-import 'package:expense/pages/home/components/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'components/add_expense_page.dart';
@@ -14,9 +15,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // graph data future
+  // Future<Map<int, double>>? _MonthlyTotalsFuture;
+
+
   @override
   void initState() {
     Provider.of<ExpenseDatabase>(context, listen: false).getAllExpenses();
+
+    // load future
+    // _MonthlyTotalsFuture = Provider.of <ExpenseDatabase>(context, listen: false).getMonthlyTotals();
 
     super.initState();
   }
@@ -42,18 +50,29 @@ class _HomePageState extends State<HomePage> {
         heroTag: "addExpense",
         child: const Icon(
           Icons.add,
-          size: 40,
+          size: 30,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: const SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [ 
-            GetExpensesView(),
-            CustomAppBar(),
+            // Bar graph
+            SizedBox(
+              height: 250,
+              // child: FutureBuilder(
+              //   future: , 
+              //   builder: (context, snapshot) {
+              //     if (snapshot.connectionState == ConnectionState.done) {
+              //       final MonthlyTotals = snapshot.data ?? {};
+
+              //       List<double> MonthlySummary = List.generate(weekCount, (index) => MonthlyTotals[index] ?? 0.0);
+              //     }
+              //   }
+              // ),
+            ),
+            GetExpensesList(),
+            // CustomAppBar(),
           ],
         ),
       ),

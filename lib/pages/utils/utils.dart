@@ -1,6 +1,9 @@
 double convertStringToDouble(String value) {
   double? result = double.tryParse(value);
-  return result ?? 0;
+  if (result == null) {
+    return 0;
+  }
+  return amountFormatter(result, 0);
 }
 
 double amountFormatter(double amount, int decimalPlaces) {
