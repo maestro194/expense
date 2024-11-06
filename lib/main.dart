@@ -1,7 +1,6 @@
 import "package:expense/pages/components/custom_app_bar.dart";
 import "package:flutter/material.dart";
 import "package:expense/database/expense_database.dart";
-import "package:expense/pages/home_page.dart";
 import "package:provider/provider.dart";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: HomePage(),
       home: CustomAppBar(),
     );
   }

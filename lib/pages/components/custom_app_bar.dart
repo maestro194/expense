@@ -12,9 +12,10 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  final double horizontalPadding = 10;
-  final double verticalPadding = 10;
+  final double horizontalPadding = 1;
+  final double verticalPadding = 1;
   final double iconSize = 30;
+  final double fontSize = 12;
 
   int _currentIndex = 0;
 
@@ -29,14 +30,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_currentIndex],
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
         child: Padding(
-          // padding: EdgeInsets.symmetric(
-          //     horizontal: horizontalPadding, vertical: verticalPadding),
-          padding: const EdgeInsets.all(5),
+          padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding, vertical: verticalPadding),
+          // padding: const EdgeInsets.all(5),
           child: Row(
-            mainAxisSize: MainAxisSize.max,
+            // mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -55,7 +56,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Text(
                       "Home",
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: fontSize,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -79,7 +80,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Text(
                       "Transactions",
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: fontSize,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -97,11 +98,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Icon(
                       Icons.account_balance_wallet,
                       size: iconSize,
+                      color: _currentIndex == 2 ? Colors.blue : Colors.grey,
                     ),
                     Text(
                       "Budgets",
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: fontSize,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -119,11 +121,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Icon(
                       Icons.settings,
                       size: iconSize,
+                      color: _currentIndex == 3 ? Colors.blue : Colors.grey,
                     ),
                     Text(
                       "Settings",
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: fontSize,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

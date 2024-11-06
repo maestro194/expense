@@ -1,6 +1,5 @@
 import 'package:expense/database/expense_database.dart';
-import 'package:expense/pages/components/bar_graph.dart';
-import 'package:expense/pages/components/custom_app_bar.dart';
+// import 'package:expense/pages/components/bar_graph.dart';
 import 'package:expense/pages/components/get_expenses_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +17,6 @@ class _HomePageState extends State<HomePage> {
   // graph data future
   // Future<Map<int, double>>? _MonthlyTotalsFuture;
 
-
   @override
   void initState() {
     Provider.of<ExpenseDatabase>(context, listen: false).getAllExpenses();
@@ -28,7 +26,7 @@ class _HomePageState extends State<HomePage> {
 
     super.initState();
   }
-  
+
   void openExpenseForm() {
     // open the expense form
     Navigator.push(
@@ -42,7 +40,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           openExpenseForm();
@@ -53,28 +50,85 @@ class _HomePageState extends State<HomePage> {
           size: 30,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: const SafeArea(
-        child: Column(
-          children: [ 
-            // Bar graph
-            SizedBox(
-              height: 250,
-              // child: FutureBuilder(
-              //   future: , 
-              //   builder: (context, snapshot) {
-              //     if (snapshot.connectionState == ConnectionState.done) {
-              //       final MonthlyTotals = snapshot.data ?? {};
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
-              //       List<double> MonthlySummary = List.generate(weekCount, (index) => MonthlyTotals[index] ?? 0.0);
-              //     }
-              //   }
-              // ),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Hello,",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Welcome back!",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            GetExpensesList(),
-            // CustomAppBar(),
+            SliverToBoxAdapter(
+              child: Container(
+                height: 200,
+                margin: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+              )
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                height: 200,
+                margin: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+              )
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                height: 200,
+                margin: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+              )
+            ),
           ],
         ),
+        // children: [
+        //   // Bar graph
+        //   SizedBox(
+        //     height: 250,
+        //     // child: FutureBuilder(
+        //     //   future: ,
+        //     //   builder: (context, snapshot) {
+        //     //     if (snapshot.connectionState == ConnectionState.done) {
+        //     //       final MonthlyTotals = snapshot.data ?? {};
+
+        //     //       List<double> MonthlySummary = List.generate(weekCount, (index) => MonthlyTotals[index] ?? 0.0);
+        //     //     }
+        //     //   }
+        //     // ),
+        //   ),
+        //   GetExpensesList(),
+        //   // CustomAppBar(),
+        // ],
       ),
     );
   }
